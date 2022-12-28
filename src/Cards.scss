@@ -1,54 +1,48 @@
 @import url("https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou");
 
 body {
-    font-family: "ZCOOL QingKe HuangYou", cursive;
-    background-color: #005B4A;
+  font-family: "ZCOOL QingKe HuangYou", cursive;
+  background-color: #005b4a;
 }
 
 .card {
-    width: 75px;
-    height: 105px;
-    display: inline-block;
-    border: 1px solid #eee;
-    margin: 20px;
-    text-align: center;
-    padding: 15px 5px 5px 5px;
-    font-size: 2.5em;
-    background-color: #E3DFD4;
-    border-radius: 10px;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+  width: 75px;
+  height: 105px;
+  display: inline-block;
+  border: 1px solid #eee;
+  margin: 20px;
+  text-align: center;
+  padding: 15px 5px 5px 5px;
+  font-size: 2em;
+  background-color: #e3dfd4;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
 
-    &.active {
-        transform: translate(-5px, -15px);
-        box-shadow: 10px 5px 5px 0px rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
+  &.active {
+    transform: translate(-5px, -15px);
+    box-shadow: 10px 5px 5px 0px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+  }
 
-    }
+  &:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 10px 5px 5px 0px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  &.diamonds {
+    color: #b84443;
+  }
 
-    &:hover {
-        transform: translate(-5px, -5px);
-        box-shadow: 10px 5px 5px 0px rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
-        cursor: pointer;
-    }
-    &.diamonds {
-        color: #B84443;
-    }
-    
-    &.hearts {
-        color: #B84443;
-    }
-    
-    &.clubs {
-        color: #1E1B19;
-    }
-    
-    &.spades {
-        color: #1E1B19;
-    }
+  &.hearts {
+    color: #b84443;
+  }
+
+  &.clubs {
+    color: #1e1b19;
+  }
+
+  &.spades {
+    color: #1e1b19;
+  }
 }
-
-
-
-
-
