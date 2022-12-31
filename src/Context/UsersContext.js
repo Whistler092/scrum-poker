@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const AppContext = React.createContext({
-    users: [],
-    setUsers : () => { }
-    /* actualizar: () => { } */
+  users: [],
+  setUsers: () => {},
+  cardsVisibility: false,
+  setCardsVisibility: () => {},
 });
 
 export default AppContext;
