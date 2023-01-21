@@ -5,12 +5,15 @@ import { useEffect, useState } from "react";
 import AppContext from "./Context/UsersContext";
 import ShowCardsBtn from "./ShowCardsBtn";
 
+import { db } from "./utils/firebase";
+import { onValue, ref, set } from "firebase/database";
+
 export default function Root() {
   const [users, setUsers] = useState([]);
   const [cardsVisibility, setCardsVisibility] = useState(false);
 
   useEffect(() => {
-    setUsers([
+    /*  setUsers([
       {
         username: "whistler092",
         email: "iamramiroo@gmail.com",
@@ -23,7 +26,21 @@ export default function Root() {
         effort: "",
         myself: false,
       },
-    ]);
+    ]); */
+
+    /*  try {
+      set(ref(db, "users/"), users);
+    } catch (error) {
+      console.error(error);
+    } */
+
+    //https://firebase.google.com/docs/database/web/read-and-write#web-version-9
+    const userRef = ref(db, "users/");
+    onValue(userRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log("users from firebase", data);
+      setUsers(data);
+    });
   }, []);
 
   return (

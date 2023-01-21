@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import "./ShowCardsBtn.scss";
 import AppContext from "./Context/UsersContext";
+/* import { db } from "./utils/firebase"; */
 
 export default function ShowCardsBtn() {
   const { users, setUsers, cardsVisibility, setCardsVisibility } =
@@ -25,7 +26,7 @@ export default function ShowCardsBtn() {
   return (
     <>
       <div className="showCardsBtn">
-        <button class="btn info" onClick={updateCardAsActive()}>
+        <button className="btn info" onClick={updateCardAsActive()}>
           {!cardsVisibility ? "Display Effort" : "Reset"}
         </button>
       </div>

@@ -1,11 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import "./UsersConnected.scss";
 import AppContext from "./Context/UsersContext";
+import { db } from "./utils/firebase";
+import { onValue, ref } from "firebase/database";
 
 export default function UsersConnected() {
   const { users, setUsers, cardsVisibility } = useContext(AppContext);
 
   useEffect(() => {
+    const query = ref(db, "users");
+    /* query.push(users); */
+    return onValue(query, (snapshot) => {
+      const data = snapshot.val();
+
+      if (snapshot.exists()) {
+        Object.values(data).map((project) => {
+          console.log("project", project);
+        });
+      }
+    });
+
     /* const newUsers = [...users];
     newUsers.push({
       username: "Another Users",
@@ -30,9 +44,11 @@ export default function UsersConnected() {
                   {cardsVisibility ? (
                     user.effort
                   ) : user.effort ? (
-                    <span class="material-symbols-outlined">done</span>
+                    <span className="material-symbols-outlined">done</span>
                   ) : (
-                    <span class="material-symbols-outlined">hourglass_top</span>
+                    <span className="material-symbols-outlined">
+                      hourglass_top
+                    </span>
                   )}
                 </div>
               </li>
