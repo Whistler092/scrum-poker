@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Cards.scss";
-import AppContext from "./Context/UsersContext";
+import { useUserContext } from "../Context/UsersContext";
 
 export default function Cards() {
+  const { user, usersToPoker, setUsersToPoker } = useUserContext();
+
   /* 
     CSS By
     https://codepen.io/ylin/pen/PVgmJQ */
   const [pattern, setPattern] = useState({});
   const [cards, setCards] = useState([]);
-  const { users, setUsers } = useContext(AppContext);
-  console.log("users from cards", users);
 
   useEffect(() => {
     const patterns = {
@@ -55,35 +55,37 @@ export default function Cards() {
     setCards(newCards);
     console.log("newCards[index]", newCards[index]);
 
-    const newUsers = [...users];
+    const newUsers = [...usersToPoker];
     newUsers.forEach((user) => {
       if (user.myself) {
         user.effort = newCards[index].key;
       }
     });
-    setUsers(newUsers);
+    setUsersToPoker(newUsers);
   };
 
   return (
     <>
-      <div id="cards">
-        <ul>
-          {cards &&
-            cards.map((card, index) => {
-              return (
-                <li
-                  key={index}
-                  className={`card ${pattern.pattern} ${
-                    card.isActive ? "active" : ""
-                  }`}
-                  onClick={updateCardAsActive(index)}
-                >
-                  <div>{`${card.key} ${pattern.icon}`}</div>
-                </li>
-              );
-            })}
-        </ul>
-      </div>
+      {user ? (
+        <div id="cards">
+          <ul>
+            {cards &&
+              cards.map((card, index) => {
+                return (
+                  <li
+                    key={index}
+                    className={`card ${pattern.pattern} ${
+                      card.isActive ? "active" : ""
+                    }`}
+                    onClick={updateCardAsActive(index)}
+                  >
+                    <div>{`${card.key} ${pattern.icon}`}</div>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+      ) : null}
     </>
   );
 }

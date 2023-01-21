@@ -6,6 +6,9 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  signOut,
 } from "firebase/auth";
 
 const config = import.meta.env;
@@ -26,16 +29,31 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 
-const auth = getAuth();
-
-export const signIn = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password);
-};
-
-export const signUp = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
-};
+const auth = getAuth(app);
 
 export const authStatusChanged = (user) => {
   return onAuthStateChanged(auth, user);
+};
+
+export const handleSignOut = () => {
+  return signOut(auth);
+};
+
+export const sendSignInLink = (email) => {
+  const actionCodeSettings = {
+    url: `${config.VITE_SITE_URL}/login-url`,
+    handleCodeInApp: true,
+  };
+
+  console.log(auth);
+  return sendSignInLinkToEmail(auth, email, actionCodeSettings);
+};
+
+export const handleSignInLink = (url) => {
+  if (isSignInWithEmailLink(auth, url)) {
+    const emailRegistered = window.localStorage.getItem("email");
+    return signInWithEmailLink(auth, emailRegistered, url);
+  } else {
+    window.location.href = "/invalid-url";
+  }
 };
