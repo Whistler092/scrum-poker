@@ -30,17 +30,17 @@ export default function Cards() {
     });
 
     const cards = [
-      { key: 0, isActive: false },
-      { key: 1, isActive: false },
-      { key: 2, isActive: false },
-      { key: 3, isActive: false },
-      { key: 5, isActive: false },
-      { key: 8, isActive: false },
-      { key: 13, isActive: false },
-      { key: 21, isActive: false },
-      { key: 34, isActive: false },
-      { key: "?", isActive: false },
-      { key: "∞", isActive: false },
+      { id: 0, key: 0, isActive: false },
+      { id: 1, key: 1, isActive: false },
+      { id: 2, key: 2, isActive: false },
+      { id: 3, key: 3, isActive: false },
+      { id: 4, key: 5, isActive: false },
+      { id: 5, key: 8, isActive: false },
+      { id: 6, key: 13, isActive: false },
+      { id: 7, key: 21, isActive: false },
+      { id: 8, key: 34, isActive: false },
+      { id: 9, key: "?", isActive: false },
+      { id: 10, key: "∞", isActive: false },
     ];
     setCards(cards);
   }, []);

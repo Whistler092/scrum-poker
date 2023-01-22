@@ -2,8 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
@@ -12,8 +10,6 @@ import {
 } from "firebase/auth";
 
 const config = import.meta.env;
-
-console.log("firebase", config);
 
 const firebaseConfig = {
   apiKey: config.VITE_API_KEY,

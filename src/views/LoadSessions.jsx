@@ -19,7 +19,6 @@ export default function LoadSessions() {
       const userRef = ref(db, `users/${user?.uid}/`);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(`users/${user?.uid}/ sessions from firebas`, data);
 
         if (data === null) setSessions([]);
         else {

@@ -1,4 +1,4 @@
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, update } from "firebase/database";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../Context/UsersContext";
@@ -17,11 +17,27 @@ export default function SessionInProgress() {
       const userRef = ref(db, `sessions/${sessionId}`);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(
-          `Current Session sessions/${sessionId}  from firebase`,
-          data
-        );
+
         setCurrentSession(data);
+
+        //Check if user exist in session
+        const newCurrentSession = { ...data };
+        const userExistInSession = newCurrentSession.usersConnected.find(
+          (i) => i.uid == user.uid
+        );
+        if (!userExistInSession) {
+          newCurrentSession.usersConnected.push({
+            owner: false,
+            uid: user.uid,
+            displayName: user.email,
+            effort: 0,
+          });
+
+          update(
+            ref(db, `sessions/${newCurrentSession.uuid}`),
+            newCurrentSession
+          );
+        }
       });
     }
   }, [user]);

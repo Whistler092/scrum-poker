@@ -14,12 +14,11 @@ export default function ShowCardsBtn() {
       });
     }
 
+    // Reset
     if (currentSession.showCards) {
       const newCurrentSession = { ...currentSession };
       newCurrentSession.usersConnected.forEach((userConnected) => {
-        if (user.uid == userConnected.uid) {
-          userConnected.effort = "";
-        }
+        userConnected.effort = "";
       });
       newCurrentSession.showCards = false;
 
