@@ -15,7 +15,6 @@ export default function UserStatus() {
     authStatusChanged((newUser) => {
       if (newUser && user !== newUser) {
         setUser(newUser);
-        console.log("authStatusChanged", newUser);
       } else {
         setUser(null);
       }

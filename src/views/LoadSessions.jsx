@@ -5,6 +5,7 @@ import { db } from "../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
 import "./LoadSessions.scss";
 import { useNavigate } from "react-router";
+const config = import.meta.env;
 
 export default function LoadSessions() {
   const { user, currentSession, setCurrentSession } = useUserContext();
@@ -44,6 +45,11 @@ export default function LoadSessions() {
     setCurrentSession(null);
   };
 
+  const handleShareUrl = (uuid) => {
+    const fullUrl = `${config.VITE_SITE_URL}/session-in-progress/${uuid}`;
+    navigator.clipboard.writeText(fullUrl);
+  };
+
   const handleNewSession = () => {
     const newUuidv4 = uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
     console.log("newSession", newUuidv4);
@@ -66,6 +72,22 @@ export default function LoadSessions() {
     set(ref(db, `sessions/${user.uid}/`), [...sessions, newSession]);
   };
 
+  const loadSavedSessions = (uuid) => {
+    window.localStorage.clear("currentSession");
+
+    /* navigate(`/session-in-progress/${savedCurrentSession}`); */
+
+    /* const savedCurrentSession = window.localStorage.getItem("currentSession");
+    console.log("savedCurrentSession", savedCurrentSession); */
+    if (uuid) {
+      window.localStorage.setItem("currentSession", uuid);
+      const session = sessions.find((row) => row.uuid == uuid);
+      console.log("session", session);
+      setCurrentSession(session);
+      navigate(`/session-in-progress/${uuid}`);
+    }
+  };
+
   if (!user) return null;
 
   if (sessions === null) return <>Loading sessions...</>;
@@ -76,9 +98,22 @@ export default function LoadSessions() {
       <div key={currentSession.uuid} className="sessions">
         <div>{currentSession.uuid}</div>
         <div>Created: {new Date(currentSession.date).toLocaleString()}</div>
-        <button type="reset" onClick={() => handleRemoveSession()}>
-          Remove
-        </button>
+        <div>
+          <button
+            className="mdc-icon-button material-icons small-icon"
+            onClick={() => handleShareUrl(currentSession.uuid)}
+          >
+            <div className="mdc-icon-button__ripple"></div>
+            link
+          </button>
+          <button
+            className="mdc-icon-button material-icons small-icon"
+            onClick={() => handleRemoveSession()}
+          >
+            <div className="mdc-icon-button__ripple"></div>
+            cancel_presentation
+          </button>
+        </div>
       </div>
     );
   }
@@ -87,7 +122,11 @@ export default function LoadSessions() {
     <div>
       {sessions && currentSession === null
         ? sessions.map((session) => (
-            <div key={session.uuid} className="sessions">
+            <div
+              key={session.uuid}
+              className="sessions sessions-click"
+              onClick={() => loadSavedSessions(session.uuid)}
+            >
               <div>{session.uuid}</div>
               <div>Created: {new Date(session.date).toLocaleString()}</div>
             </div>

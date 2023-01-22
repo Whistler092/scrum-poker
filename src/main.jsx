@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserContextProvider } from "./Context/UsersContext";
-import "./index.css";
+import "./index.scss";
 // Views
 import Root from "./Root";
 import LoginUrl from "./views/LoginUrl";

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@material/icon-button": "^14.0.0",
     "firebase": "^9.16.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
