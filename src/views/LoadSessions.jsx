@@ -5,6 +5,7 @@ import { db } from "../utils/firebase";
 import { v4 as uuidv4 } from "uuid";
 import "./LoadSessions.scss";
 import { useNavigate } from "react-router";
+import { toast } from "react-hot-toast";
 const config = import.meta.env;
 
 export default function LoadSessions() {
@@ -48,6 +49,7 @@ export default function LoadSessions() {
   const handleShareUrl = (uuid) => {
     const fullUrl = `${config.VITE_SITE_URL}/session-in-progress/${uuid}`;
     navigator.clipboard.writeText(fullUrl);
+    toast.success("URL copied to clipboard.");
   };
 
   const handleNewSession = () => {
