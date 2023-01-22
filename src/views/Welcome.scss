@@ -1,0 +1,34 @@
+.content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: flex-start;
+  align-items: center;
+  margin-left: 10px;
+
+  img {
+    width: 13em;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1em;
+      font-size: 1.2em;
+      box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+      background: whitesmoke;
+      color: black;
+      border-radius: 3px;
+      padding: 1em;
+
+      img {
+        margin: 0.5em;
+      }
+    }
+  }
+}

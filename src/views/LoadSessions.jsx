@@ -71,6 +71,9 @@ export default function LoadSessions() {
           <div>Created: {new Date(currentSession.date).toLocaleString()}</div>
           <div>
             <button
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Get link"
               className="mdc-icon-button material-icons small-icon"
               onClick={() => handleShareUrl(currentSession.uuid)}
             >
