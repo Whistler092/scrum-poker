@@ -24,7 +24,10 @@ export default function Root() {
       </div>
       <div className="autor">
         Dev with <span className="material-symbols-outlined">favorite</span> by
-        Ramiro Bedoya
+        <a target="_blank" href="https://ramirobedoya.me/">
+          {" "}
+          Ramiro Bedoya
+        </a>
       </div>
     </>
   );
