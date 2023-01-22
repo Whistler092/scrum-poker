@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Cards.scss";
 import { useUserContext } from "../Context/UsersContext";
+import { ref, update } from "firebase/database";
+import { db } from "../utils/firebase";
 
 export default function Cards() {
-  const { user, usersToPoker, setUsersToPoker } = useUserContext();
+  const { user, currentSession } = useUserContext();
 
   /* 
     CSS By
@@ -53,15 +55,17 @@ export default function Cards() {
     newCards[index].isActive = !currentState;
 
     setCards(newCards);
-    console.log("newCards[index]", newCards[index]);
 
-    const newUsers = [...usersToPoker];
-    newUsers.forEach((user) => {
-      if (user.myself) {
-        user.effort = newCards[index].key;
+    const newCurrentSession = { ...currentSession };
+    newCurrentSession.usersConnected.forEach((userConnected) => {
+      if (user.uid == userConnected.uid) {
+        userConnected.effort = !newCards[index].isActive
+          ? 0
+          : newCards[index].key;
       }
     });
-    setUsersToPoker(newUsers);
+
+    update(ref(db, `sessions/${newCurrentSession.uuid}`), newCurrentSession);
   };
 
   return (

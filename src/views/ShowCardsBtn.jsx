@@ -1,38 +1,44 @@
-import { useContext, useEffect, useState } from "react";
+import { ref, update } from "firebase/database";
 import { useUserContext } from "../Context/UsersContext";
+import { db } from "../utils/firebase";
 import "./ShowCardsBtn.scss";
 
 export default function ShowCardsBtn() {
-  const {
-    user,
-    usersToPoker,
-    setUsersToPoker,
-    cardsVisibility,
-    setCardsVisibility,
-  } = useUserContext();
+  const { user, currentSession } = useUserContext();
 
   const updateCardAsActive = () => (e) => {
-    if (!cardsVisibility) {
-      setCardsVisibility(true);
+    if (!currentSession.showCards) {
+      update(ref(db, `sessions/${currentSession.uuid}`), {
+        ...currentSession,
+        showCards: true,
+      });
     }
 
-    if (cardsVisibility) {
-      const newUsers = [...usersToPoker];
-      newUsers.forEach((user) => {
-        user.effort = "";
+    if (currentSession.showCards) {
+      const newCurrentSession = { ...currentSession };
+      newCurrentSession.usersConnected.forEach((userConnected) => {
+        if (user.uid == userConnected.uid) {
+          userConnected.effort = "";
+        }
       });
+      newCurrentSession.showCards = false;
 
-      setUsersToPoker(newUsers);
-      setCardsVisibility(false);
+      update(ref(db, `sessions/${newCurrentSession.uuid}`), newCurrentSession);
     }
   };
 
+  if (!user || !currentSession) return null;
+
+  const isCurrentUserOwner = currentSession?.usersConnected.find(
+    (userConnected) => user.uid == userConnected.uid
+  )?.owner;
+
   return (
     <>
-      {user ? (
+      {isCurrentUserOwner ? (
         <div className="showCardsBtn">
           <button className="btn info" onClick={updateCardAsActive()}>
-            {!cardsVisibility ? "Display Effort" : "Reset"}
+            {!currentSession.showCards ? "Display Effort" : "Reset"}
           </button>
         </div>
       ) : null}

@@ -1,3 +1,7 @@
+.single-session {
+  display: flex;
+}
+
 .sessions {
   display: flex;
   border: 1px solid whitesmoke;
@@ -5,6 +9,8 @@
   padding: 1px 10px;
   justify-content: space-between;
   align-items: center;
+  max-width: 700px;
+
   .small-icon {
     padding: 0.1em 0.5em;
     margin-left: 1em;

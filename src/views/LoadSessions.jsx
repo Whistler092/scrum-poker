@@ -1,4 +1,4 @@
-import { onValue, ref, set, update } from "firebase/database";
+import { onValue, ref, set } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../Context/UsersContext";
 import { db } from "../utils/firebase";
@@ -16,10 +16,10 @@ export default function LoadSessions() {
   useEffect(() => {
     if (user) {
       //https://firebase.google.com/docs/database/web/read-and-write#web-version-9
-      const userRef = ref(db, `sessions/${user?.uid}/`);
+      const userRef = ref(db, `users/${user?.uid}/`);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        console.log("sessions from firebase", data);
+        console.log(`users/${user?.uid}/ sessions from firebas`, data);
 
         if (data === null) setSessions([]);
         else {
@@ -27,15 +27,12 @@ export default function LoadSessions() {
 
           const savedCurrentSession =
             window.localStorage.getItem("currentSession");
-          console.log("savedCurrentSession", savedCurrentSession);
           if (savedCurrentSession) {
             const session = data.find((row) => row.uuid == savedCurrentSession);
             console.log("session", session);
-            setCurrentSession(session);
             navigate(`/session-in-progress/${savedCurrentSession}`);
           }
         }
-        /* setUsersToPoker(data); */
       });
     }
   }, [user]);
@@ -44,6 +41,7 @@ export default function LoadSessions() {
     console.log("handleRemoveSession");
     window.localStorage.clear("currentSession");
     setCurrentSession(null);
+    navigate(`/`);
   };
 
   const handleShareUrl = (uuid) => {
@@ -58,8 +56,15 @@ export default function LoadSessions() {
 
     const newSession = {
       uuid: newUuidv4,
-      showCards: false,
       date: new Date().toUTCString(),
+    };
+    window.localStorage.clear("currentSession");
+    window.localStorage.setItem("currentSession", newUuidv4);
+    set(ref(db, `users/${user.uid}/`), [...sessions, newSession]);
+
+    set(ref(db, `sessions/${newUuidv4}`), {
+      ...newSession,
+      showCards: false,
       usersConnected: [
         {
           owner: true,
@@ -68,24 +73,14 @@ export default function LoadSessions() {
           effort: 0,
         },
       ],
-    };
-    window.localStorage.clear("currentSession");
-    window.localStorage.setItem("currentSession", newUuidv4);
-    set(ref(db, `sessions/${user.uid}/`), [...sessions, newSession]);
+    });
   };
 
   const loadSavedSessions = (uuid) => {
+    console.log("loadSavedSessions", uuid);
     window.localStorage.clear("currentSession");
 
-    /* navigate(`/session-in-progress/${savedCurrentSession}`); */
-
-    /* const savedCurrentSession = window.localStorage.getItem("currentSession");
-    console.log("savedCurrentSession", savedCurrentSession); */
     if (uuid) {
-      window.localStorage.setItem("currentSession", uuid);
-      const session = sessions.find((row) => row.uuid == uuid);
-      console.log("session", session);
-      setCurrentSession(session);
       navigate(`/session-in-progress/${uuid}`);
     }
   };
@@ -94,27 +89,28 @@ export default function LoadSessions() {
 
   if (sessions === null) return <>Loading sessions...</>;
 
-  console.log("currentSession", currentSession);
   if (currentSession) {
     return (
-      <div key={currentSession.uuid} className="sessions">
-        <div>{currentSession.uuid}</div>
-        <div>Created: {new Date(currentSession.date).toLocaleString()}</div>
-        <div>
-          <button
-            className="mdc-icon-button material-icons small-icon"
-            onClick={() => handleShareUrl(currentSession.uuid)}
-          >
-            <div className="mdc-icon-button__ripple"></div>
-            link
-          </button>
-          <button
-            className="mdc-icon-button material-icons small-icon"
-            onClick={() => handleRemoveSession()}
-          >
-            <div className="mdc-icon-button__ripple"></div>
-            cancel_presentation
-          </button>
+      <div className="single-session">
+        <div key={currentSession.uuid} className="sessions">
+          <div>{currentSession.uuid}</div>
+          <div>Created: {new Date(currentSession.date).toLocaleString()}</div>
+          <div>
+            <button
+              className="mdc-icon-button material-icons small-icon"
+              onClick={() => handleShareUrl(currentSession.uuid)}
+            >
+              <div className="mdc-icon-button__ripple"></div>
+              link
+            </button>
+            <button
+              className="mdc-icon-button material-icons small-icon"
+              onClick={() => handleRemoveSession()}
+            >
+              <div className="mdc-icon-button__ripple"></div>
+              cancel_presentation
+            </button>
+          </div>
         </div>
       </div>
     );

@@ -1,24 +1,30 @@
-import React from "react";
+import { onValue, ref } from "firebase/database";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useUserContext } from "../Context/UsersContext";
 import Cards from "./Cards";
 import ShowCardsBtn from "./ShowCardsBtn";
 import UsersConnected from "./UsersConnected";
-
-/* export async function loader({ params }) {
-    const contact = await getContact(params.contactId);
-    console.log("contact.loader", params, contact);
-    if (!contact) {
-      throw new Response("", {
-        status: 404,
-        statusText: "Not Found",
-      });
-    }
-  
-    return contact;
-  } */
+import { db } from "../utils/firebase";
 
 export default function SessionInProgress() {
-  const { user, currentSession } = useUserContext();
+  const { user, currentSession, setCurrentSession } = useUserContext();
+  let { sessionId } = useParams();
+
+  useEffect(() => {
+    if (user && sessionId) {
+      //https://firebase.google.com/docs/database/web/read-and-write#web-version-9
+      const userRef = ref(db, `sessions/${sessionId}`);
+      onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(
+          `Current Session sessions/${sessionId}  from firebase`,
+          data
+        );
+        setCurrentSession(data);
+      });
+    }
+  }, [user]);
 
   if (!currentSession) return null;
 
