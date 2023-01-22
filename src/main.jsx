@@ -8,11 +8,18 @@ import Root from "./Root";
 import LoginUrl from "./views/LoginUrl";
 import Success from "./views/Success";
 import InvalidUrl from "./views/InvalidUrl";
+import SessionInProgress from "./views/SessionInProgress";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    children: [
+      {
+        path: "session-in-progress/:sessionId",
+        element: <SessionInProgress />,
+      },
+    ],
   },
   {
     path: "/invalid-url",

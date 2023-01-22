@@ -8,14 +8,7 @@ export function UserContextProvider(props) {
   const [user, setUser] = useState(null);
   const [usersToPoker, setUsersToPoker] = useState([]);
   const [cardsVisibility, setCardsVisibility] = useState(false);
-
-  authStatusChanged((user) => {
-    if (user) {
-      setUser(user);
-    } else {
-      setUser(null);
-    }
-  });
+  const [currentSession, setCurrentSession] = useState(null);
 
   // Esto sirve es para que no se haga un render de mas cuando se cambie una variable
   const value = useMemo(
@@ -26,8 +19,10 @@ export function UserContextProvider(props) {
       setUsersToPoker,
       cardsVisibility,
       setCardsVisibility,
+      currentSession,
+      setCurrentSession,
     }),
-    [user, usersToPoker, cardsVisibility]
+    [user, usersToPoker, cardsVisibility, currentSession]
   );
 
   useEffect(() => {

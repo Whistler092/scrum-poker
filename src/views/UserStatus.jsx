@@ -1,14 +1,26 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useUserContext } from "../Context/UsersContext";
-import { handleSignOut, sendSignInLink } from "../utils/firebase";
+import {
+  authStatusChanged,
+  handleSignOut,
+  sendSignInLink,
+} from "../utils/firebase";
 
 export default function UserStatus() {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
   const [waitingLink, setWaitingLink] = useState(false);
   const [email, setEmail] = useState(null);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    authStatusChanged((newUser) => {
+      if (newUser && user !== newUser) {
+        setUser(newUser);
+        console.log("authStatusChanged", newUser);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
 
   function handleLoginSubmit(e) {
     e.preventDefault();

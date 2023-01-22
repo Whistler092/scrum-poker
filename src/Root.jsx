@@ -1,8 +1,7 @@
 //Views
-import ShowCardsBtn from "./views/ShowCardsBtn";
-import Cards from "./views/Cards";
-import UsersConnected from "./views/UsersConnected";
 import UserStatus from "./views/UserStatus";
+import LoadSessions from "./views/LoadSessions";
+import { Outlet } from "react-router";
 
 export default function Root() {
   return (
@@ -12,11 +11,9 @@ export default function Root() {
       </div>
       <div id="detail">
         <UserStatus />
-        <UsersConnected />
-        <ShowCardsBtn />
-        <hr className="dashed" />
+        <LoadSessions />
 
-        <Cards />
+        <Outlet />
       </div>
     </>
   );
