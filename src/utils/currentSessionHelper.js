@@ -1,6 +1,8 @@
 import { db } from "./firebase";
 import { v4 as uuidv4 } from "uuid";
 import { ref, set, update } from "firebase/database";
+import { toast } from "react-hot-toast";
+const config = import.meta.env;
 
 export const checkUserInCurrentSession = (user, currentSession) => {
   if (!currentSession) return null;
@@ -79,4 +81,10 @@ export const createNewSession = (user, sessions) => {
       },
     ],
   });
+};
+
+export const shareUrlHelper = (uuid) => {
+  const fullUrl = `${config.VITE_SITE_URL}/session-in-progress/${uuid}`;
+  navigator.clipboard.writeText(fullUrl);
+  toast.success("URL copied to clipboard.");
 };

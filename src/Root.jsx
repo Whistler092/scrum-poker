@@ -12,10 +12,12 @@ export default function Root() {
           <Toaster />
         </div>
 
-        <h1>Poker Items</h1>
+        <div className="banner">
+          <h1>Poker Items</h1>
+          <UserStatus />
+        </div>
       </div>
       <div id="detail">
-        <UserStatus />
         <LoadSessions />
 
         <Outlet />

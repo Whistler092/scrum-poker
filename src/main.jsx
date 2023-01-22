@@ -9,12 +9,17 @@ import LoginUrl from "./views/LoginUrl";
 import Success from "./views/Success";
 import InvalidUrl from "./views/InvalidUrl";
 import SessionInProgress from "./views/SessionInProgress";
+import Welcome from "./views/Welcome";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
+      {
+        index: true,
+        element: <Welcome />,
+      },
       {
         path: "session-in-progress/:sessionId",
         element: <SessionInProgress />,

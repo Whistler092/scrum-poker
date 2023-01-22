@@ -1,12 +1,13 @@
-import { onValue, ref, set } from "firebase/database";
+import { onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../Context/UsersContext";
 import { db } from "../utils/firebase";
 import "./LoadSessions.scss";
 import { useNavigate } from "react-router";
-import { toast } from "react-hot-toast";
-import { createNewSession } from "../utils/currentSessionHelper";
-const config = import.meta.env;
+import {
+  createNewSession,
+  shareUrlHelper,
+} from "../utils/currentSessionHelper";
 
 export default function LoadSessions() {
   const { user, currentSession, setCurrentSession } = useUserContext();
@@ -27,8 +28,6 @@ export default function LoadSessions() {
           const savedCurrentSession =
             window.localStorage.getItem("currentSession");
           if (savedCurrentSession) {
-            const session = data.find((row) => row.uuid == savedCurrentSession);
-            console.log("session", session);
             navigate(`/session-in-progress/${savedCurrentSession}`);
           }
         }
@@ -44,9 +43,7 @@ export default function LoadSessions() {
   };
 
   const handleShareUrl = (uuid) => {
-    const fullUrl = `${config.VITE_SITE_URL}/session-in-progress/${uuid}`;
-    navigator.clipboard.writeText(fullUrl);
-    toast.success("URL copied to clipboard.");
+    shareUrlHelper(uuid);
   };
 
   const handleNewSession = () => {

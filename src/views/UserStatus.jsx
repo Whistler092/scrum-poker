@@ -5,6 +5,7 @@ import {
   handleSignOut,
   sendSignInLink,
 } from "../utils/firebase";
+import "./UserStatus.scss";
 
 export default function UserStatus() {
   const { user, setUser } = useUserContext();
@@ -49,18 +50,34 @@ export default function UserStatus() {
             {user ? (
               <>
                 {user.email}
-                <button onClick={() => handleSignOut()}>Sign Out</button>
+
+                <button
+                  className="mdc-icon-button material-icons small-icon"
+                  onClick={() => handleSignOut()}
+                >
+                  <div className="mdc-icon-button__ripple"></div>
+                  logout
+                </button>
               </>
             ) : (
               "Please login"
             )}
             {!user ? (
               <form onSubmit={handleLoginSubmit}>
-                <label>
-                  Email:
-                  <input type="email" id="formEmail" />
-                </label>
-                <button type="submit">Login Session</button>
+                <div className="login-box">
+                  <label>
+                    Email: {"  "}
+                    <input type="email" id="formEmail" />
+                  </label>
+                  <button
+                    type="submit"
+                    className="mdc-icon-button material-icons small-icon"
+                    onClick={() => handleSignOut()}
+                  >
+                    <div className="mdc-icon-button__ripple"></div>
+                    login
+                  </button>
+                </div>
               </form>
             ) : null}
           </>
