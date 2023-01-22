@@ -2,10 +2,10 @@ import { onValue, ref, set } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../Context/UsersContext";
 import { db } from "../utils/firebase";
-import { v4 as uuidv4 } from "uuid";
 import "./LoadSessions.scss";
 import { useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
+import { createNewSession } from "../utils/currentSessionHelper";
 const config = import.meta.env;
 
 export default function LoadSessions() {
@@ -50,29 +50,7 @@ export default function LoadSessions() {
   };
 
   const handleNewSession = () => {
-    const newUuidv4 = uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
-    console.log("newSession", newUuidv4);
-
-    const newSession = {
-      uuid: newUuidv4,
-      date: new Date().toUTCString(),
-    };
-    window.localStorage.clear("currentSession");
-    window.localStorage.setItem("currentSession", newUuidv4);
-    set(ref(db, `users/${user.uid}/`), [...sessions, newSession]);
-
-    set(ref(db, `sessions/${newUuidv4}`), {
-      ...newSession,
-      showCards: false,
-      usersConnected: [
-        {
-          owner: true,
-          uid: user.uid,
-          displayName: user.email,
-          effort: 0,
-        },
-      ],
-    });
+    createNewSession(user, sessions);
   };
 
   const loadSavedSessions = (uuid) => {

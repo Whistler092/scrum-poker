@@ -1,7 +1,4 @@
-import { useContext, useEffect, useState } from "react";
 import "./UsersConnected.scss";
-import { db } from "../utils/firebase";
-import { onValue, ref } from "firebase/database";
 import { useUserContext } from "../Context/UsersContext";
 
 export default function UsersConnected() {

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, update } from "firebase/database";
 import {
   getAuth,
   onAuthStateChanged,
@@ -53,3 +53,4 @@ export const handleSignInLink = (url) => {
     window.location.href = "/invalid-url";
   }
 };
+ 

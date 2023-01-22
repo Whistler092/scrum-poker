@@ -6,6 +6,8 @@ import Cards from "./Cards";
 import ShowCardsBtn from "./ShowCardsBtn";
 import UsersConnected from "./UsersConnected";
 import { db } from "../utils/firebase";
+import { checkUserInCurrentSession } from "../utils/currentSessionHelper";
+import { toast } from "react-hot-toast";
 
 export default function SessionInProgress() {
   const { user, currentSession, setCurrentSession } = useUserContext();
@@ -17,27 +19,14 @@ export default function SessionInProgress() {
       const userRef = ref(db, `sessions/${sessionId}`);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-
         setCurrentSession(data);
 
-        //Check if user exist in session
-        const newCurrentSession = { ...data };
-        const userExistInSession = newCurrentSession.usersConnected.find(
-          (i) => i.uid == user.uid
-        );
-        if (!userExistInSession) {
-          newCurrentSession.usersConnected.push({
-            owner: false,
-            uid: user.uid,
-            displayName: user.email,
-            effort: 0,
-          });
-
-          update(
-            ref(db, `sessions/${newCurrentSession.uuid}`),
-            newCurrentSession
-          );
+        if (!data) {
+          toast.error("Invalid URL");
         }
+
+        //Check if user exist in session
+        checkUserInCurrentSession(user, data);
       });
     }
   }, [user]);

@@ -1,6 +1,8 @@
-import { ref, update } from "firebase/database";
 import { useUserContext } from "../Context/UsersContext";
-import { db } from "../utils/firebase";
+import {
+  resetCardsInCurrentSession,
+  showCardsInCurrentSession,
+} from "../utils/currentSessionHelper";
 import "./ShowCardsBtn.scss";
 
 export default function ShowCardsBtn() {
@@ -8,21 +10,12 @@ export default function ShowCardsBtn() {
 
   const updateCardAsActive = () => (e) => {
     if (!currentSession.showCards) {
-      update(ref(db, `sessions/${currentSession.uuid}`), {
-        ...currentSession,
-        showCards: true,
-      });
+      showCardsInCurrentSession(currentSession);
     }
 
     // Reset
     if (currentSession.showCards) {
-      const newCurrentSession = { ...currentSession };
-      newCurrentSession.usersConnected.forEach((userConnected) => {
-        userConnected.effort = "";
-      });
-      newCurrentSession.showCards = false;
-
-      update(ref(db, `sessions/${newCurrentSession.uuid}`), newCurrentSession);
+      resetCardsInCurrentSession(currentSession);
     }
   };
 
