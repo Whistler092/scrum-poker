@@ -7,12 +7,11 @@ export const CARDS = [
   { id: 5, key: 8, isActive: false },
   { id: 6, key: 13, isActive: false },
   { id: 7, key: 21, isActive: false },
-  { id: 8, key: 34, isActive: false },
   { id: 9, key: "?", isActive: false },
   { id: 10, key: "∞", isActive: false },
 ];
 
-export const getRandonPattern = () => {
+export const getRandomPattern = () => {
   const patterns = {
     diamonds: "♦",
     clubs: "♣",

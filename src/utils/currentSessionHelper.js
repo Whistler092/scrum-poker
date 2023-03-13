@@ -21,13 +21,11 @@ export const checkUserInCurrentSession = (user, currentSession) => {
     });
 
     update(
-      ref(db, `${FIREBASE_SESSIONS}${newCurrentSession.uud1}`),
+      ref(db, `${FIREBASE_SESSIONS}${newCurrentSession.uuid}`),
       newCurrentSession
     );
   }
 };
-
-//updateEffortInCurrentSession(userId, currentSession, !newCards[index].isActive, newCards[index].key)
 
 export const updateEffortInCurrentSession = (
   userId,

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./Cards.scss";
-import { useUserContext } from "../Context/UsersContext";
-import { updateEffortInCurrentSession } from "../utils/currentSessionHelper";
-import { CARDS, getRandonPattern } from "../utils/cardsHelper";
+import { useUserContext } from "../../Context/UsersContext";
+import { updateEffortInCurrentSession } from "../../utils/currentSessionHelper";
+import { CARDS, getRandomPattern } from "../../utils/cardsHelper";
 
 export default function Cards() {
   const { user, currentSession } = useUserContext();
@@ -14,7 +14,7 @@ export default function Cards() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    setPattern(getRandonPattern());
+    setPattern(getRandomPattern());
 
     const cards = CARDS;
     setCards(cards);

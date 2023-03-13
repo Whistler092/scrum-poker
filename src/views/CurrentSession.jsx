@@ -2,7 +2,7 @@ import { onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../Context/UsersContext";
 import { db } from "../utils/firebase";
-import "./LoadSessions.scss";
+import "./CurrentSession.scss";
 import { useNavigate } from "react-router";
 import {
   createNewSession,
@@ -10,7 +10,7 @@ import {
 } from "../utils/currentSessionHelper";
 import { FIREBASE_USERS } from "../utils/constants";
 
-export default function LoadSessions() {
+export default function CurrentSession() {
   const { user, currentSession, setCurrentSession } = useUserContext();
   const [sessions, setSessions] = useState(null);
   const navigate = useNavigate();
@@ -19,11 +19,14 @@ export default function LoadSessions() {
     if (user) {
       //https://firebase.google.com/docs/database/web/read-and-write#web-version-9
       const path = `${FIREBASE_USERS}${user?.uid}/`;
-      console.log("loading Sessions ...", user, path, db);
+
+      console.log("loading Sessions.user ...", user);
+      console.log("loading Sessions.path ...", path);
+
       const userRef = ref(db, path);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        console.log("loading Sessions", data);
+        console.log("loading Sessions.response", data);
 
         if (data === null) setSessions([]);
         else {

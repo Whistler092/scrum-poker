@@ -1,9 +1,12 @@
 import "./UsersConnected.scss";
-import { useUserContext } from "../Context/UsersContext";
-import { shareUrlHelper } from "../utils/currentSessionHelper";
+import { useUserContext } from "../../Context/UsersContext";
+import { shareUrlHelper } from "../../utils/currentSessionHelper";
+import UsersConnectedNoSession from "./UsersConnectedNoSession";
+import DisplaySummary from "./DisplaySummary";
 
 export default function UsersConnected() {
   const { user, currentSession } = useUserContext();
+  console.log("UsersConnected", currentSession?.usersConnected);
 
   const handleShareUrl = (uuid) => {
     shareUrlHelper(uuid);
@@ -33,6 +36,10 @@ export default function UsersConnected() {
             ))}
           </ul>
 
+          {currentSession.showCards ? (
+            <DisplaySummary currentSession={currentSession} />
+          ) : null}
+
           {currentSession?.usersConnected.length === 1 ? (
             <div className="lonely-message">
               It's a bit lonely here. Let's invite your teammates sharing the
@@ -50,7 +57,9 @@ export default function UsersConnected() {
             </div>
           ) : null}
         </div>
-      ) : null}
+      ) : (
+        <UsersConnectedNoSession />
+      )}
     </>
   );
 }

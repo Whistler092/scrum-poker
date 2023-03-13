@@ -8,8 +8,8 @@ import Root from "./Root";
 import LoginUrl from "./views/LoginUrl";
 import Success from "./views/Success";
 import InvalidUrl from "./views/InvalidUrl";
-import SessionInProgress from "./views/SessionInProgress";
 import Welcome from "./views/Welcome";
+import SessionInProgress from "./views/session/Index";
 
 const router = createBrowserRouter([
   {

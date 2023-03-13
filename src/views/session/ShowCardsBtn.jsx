@@ -1,8 +1,8 @@
-import { useUserContext } from "../Context/UsersContext";
+import { useUserContext } from "../../Context/UsersContext";
 import {
   resetCardsInCurrentSession,
   showCardsInCurrentSession,
-} from "../utils/currentSessionHelper";
+} from "../../utils/currentSessionHelper";
 import "./ShowCardsBtn.scss";
 
 export default function ShowCardsBtn() {
