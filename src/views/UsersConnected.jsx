@@ -14,14 +14,14 @@ export default function UsersConnected() {
       {user ? (
         <div className="users">
           <ul>
-            {currentSession?.usersConnected.map((user, index) => (
+            {currentSession?.usersConnected.map((userConnected, index) => (
               <li key={index} className="user">
-                <div>{user.displayName.split("@")[0]}</div>
+                <div>{userConnected.displayName}</div>
 
                 <div className="card">
                   {currentSession.showCards ? (
-                    user.effort
-                  ) : user.effort ? (
+                    userConnected.effort
+                  ) : userConnected.effort ? (
                     <span className="material-symbols-outlined">done</span>
                   ) : (
                     <span className="material-symbols-outlined">

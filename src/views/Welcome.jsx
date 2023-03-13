@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useUserContext } from "../Context/UsersContext";
+import { v4 as uid } from "uuid";
 import "./Welcome.scss";
+import { CURRENT_USER } from "../utils/constants";
 
 export default function Welcome() {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   if (user) return null;
+
+  /* useEffect(() => {
+    const fromLocalStorageUser = localStorage.getItem(CURRENT_USER);
+    console.log("localStorage", fromLocalStorageUser);
+
+    if (fromLocalStorageUser !== null) {
+      setUser(JSON.parse(fromLocalStorageUser));
+    }
+  }, []); */
+
+  const handleLoginSubmit = (e) => {
+    console.log("handleLoginSubmit", e);
+
+    e.preventDefault();
+    const userName = e.target.userName.value;
+    console.log(userName);
+
+    const localStorageUser = {
+      userName,
+      uid: uid(),
+    };
+
+    localStorage.removeItem(CURRENT_USER);
+    localStorage.setItem(CURRENT_USER, JSON.stringify(localStorageUser));
+
+    setUser(localStorageUser);
+  };
+
+  const handleSignOut = () => {};
 
   return (
     <div className="content">
@@ -14,17 +45,27 @@ export default function Welcome() {
       Steps to get Start
       <div className="steps">
         <div className="step">
-          Log in with an Email link (passwordless sign-in){" "}
-          <span className="material-symbols-outlined">login</span>
-          <img src="/login.png" alt="" />
+          Write your name here!
+          <form onSubmit={handleLoginSubmit}>
+            <div className="login-box">
+              <label>
+                Name to display: {"  "}
+                <input type="text" id="userName" />
+              </label>
+              <button
+                type="submit"
+                className="mdc-icon-button material-icons small-icon"
+                onClick={() => handleSignOut()}
+              >
+                <div className="mdc-icon-button__ripple"></div>
+                login
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="step">
-          Go to your email inbox and click <b>Sign in to URL</b>
-        </div>
-        <div className="step">
-          Generate a new session <img src="/generate-new-session.png" alt="" />
-        </div>
-        <div className="step">
+        <div className="step">Share the link</div>
+        <div className="step">Done!</div>
+        {/* <div className="step">
           Copy URL clicking the icon{" "}
           <span className="material-symbols-outlined">link</span>
           <img src="/sent-url.png" alt="" />
@@ -54,7 +95,7 @@ export default function Welcome() {
         <div className="step">
           Reset all and start again
           <img src="/reset-all.png" alt="reset btn" />
-        </div>
+        </div> */}
       </div>
     </div>
   );

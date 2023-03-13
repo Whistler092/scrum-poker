@@ -53,4 +53,3 @@ export const handleSignInLink = (url) => {
     window.location.href = "/invalid-url";
   }
 };
- 

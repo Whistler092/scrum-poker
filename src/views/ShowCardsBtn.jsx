@@ -29,7 +29,7 @@ export default function ShowCardsBtn() {
     <>
       {isCurrentUserOwner ? (
         <div className="showCardsBtn">
-          <button className="btn info" onClick={updateCardAsActive()}>
+          <button className="btn btn-light" onClick={updateCardAsActive()}>
             {!currentSession.showCards ? "Display Effort" : "Reset"}
           </button>
         </div>

@@ -8,6 +8,7 @@ import UsersConnected from "./UsersConnected";
 import { db } from "../utils/firebase";
 import { checkUserInCurrentSession } from "../utils/currentSessionHelper";
 import { toast } from "react-hot-toast";
+import { FIREBASE_SESSIONS } from "../utils/constants";
 
 export default function SessionInProgress() {
   const { user, currentSession, setCurrentSession } = useUserContext();
@@ -16,7 +17,7 @@ export default function SessionInProgress() {
   useEffect(() => {
     if (user && sessionId) {
       //https://firebase.google.com/docs/database/web/read-and-write#web-version-9
-      const userRef = ref(db, `sessions/${sessionId}`);
+      const userRef = ref(db, `${FIREBASE_SESSIONS}${sessionId}`);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
         setCurrentSession(data);

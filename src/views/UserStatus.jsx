@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../Context/UsersContext";
-import {
-  authStatusChanged,
-  handleSignOut,
-  sendSignInLink,
-} from "../utils/firebase";
+import { CURRENT_USER } from "../utils/constants";
 import "./UserStatus.scss";
 
 export default function UserStatus() {
@@ -13,16 +9,27 @@ export default function UserStatus() {
   const [email, setEmail] = useState(null);
 
   useEffect(() => {
-    authStatusChanged((newUser) => {
+    /* authStatusChanged((newUser) => {
       if (newUser && user !== newUser) {
         setUser(newUser);
       } else {
         setUser(null);
       }
-    });
+    }); */
+    const fromLocalStorageUser = localStorage.getItem(CURRENT_USER);
+    console.log("localStorage", fromLocalStorageUser);
+
+    if (fromLocalStorageUser !== null) {
+      setUser(JSON.parse(fromLocalStorageUser));
+    }
   }, []);
 
-  function handleLoginSubmit(e) {
+  const handleCloseSession = () => {
+    localStorage.removeItem(CURRENT_USER);
+    setUser(null);
+  };
+
+  /* function handleLoginSubmit(e) {
     e.preventDefault();
     const emailToSendLink = e.target.formEmail.value;
     console.log(emailToSendLink);
@@ -37,7 +44,7 @@ export default function UserStatus() {
       .catch((error) => {
         console.error("error", error);
       });
-  }
+  } */
 
   return (
     <>
@@ -49,21 +56,21 @@ export default function UserStatus() {
             Hi,{" "}
             {user ? (
               <>
-                {user.email}
+                {user.userName}
 
-                <button
+                {/* <button
                   className="mdc-icon-button material-icons small-icon"
-                  onClick={() => handleSignOut()}
+                  onClick={() => handleCloseSession()}
                 >
                   <div className="mdc-icon-button__ripple"></div>
                   logout
-                </button>
+                </button> */}
               </>
             ) : (
               "Please login"
             )}
             {!user ? (
-              <form onSubmit={handleLoginSubmit}>
+              /*  <form onSubmit={handleLoginSubmit} >
                 <div className="login-box">
                   <label>
                     Email: {"  "}
@@ -78,7 +85,8 @@ export default function UserStatus() {
                     login
                   </button>
                 </div>
-              </form>
+              </form> */
+              <></>
             ) : null}
           </>
         )}
