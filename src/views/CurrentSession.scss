@@ -4,16 +4,19 @@
 
 .sessions {
   display: flex;
-  border: 1px solid whitesmoke;
   margin: 1em;
   padding: 1px 10px;
   justify-content: space-between;
   align-items: center;
   max-width: 700px;
-
-  
 }
 
 .sessions-click {
   cursor: pointer;
+}
+
+.load-session-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

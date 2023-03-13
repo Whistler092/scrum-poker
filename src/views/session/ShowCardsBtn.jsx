@@ -1,8 +1,8 @@
-import { useUserContext } from "../Context/UsersContext";
+import { useUserContext } from "../../Context/UsersContext";
 import {
   resetCardsInCurrentSession,
   showCardsInCurrentSession,
-} from "../utils/currentSessionHelper";
+} from "../../utils/currentSessionHelper";
 import "./ShowCardsBtn.scss";
 
 export default function ShowCardsBtn() {
@@ -29,7 +29,7 @@ export default function ShowCardsBtn() {
     <>
       {isCurrentUserOwner ? (
         <div className="showCardsBtn">
-          <button className="btn info" onClick={updateCardAsActive()}>
+          <button className="btn btn-light" onClick={updateCardAsActive()}>
             {!currentSession.showCards ? "Display Effort" : "Reset"}
           </button>
         </div>

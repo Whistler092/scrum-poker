@@ -1,8 +1,9 @@
 //Views
-import UserStatus from "./views/UserStatus";
-import LoadSessions from "./views/LoadSessions";
 import { Outlet } from "react-router";
 import { Toaster } from "react-hot-toast";
+
+import UserStatus from "./views/UserStatus";
+import CurrentSession from "./views/CurrentSession";
 
 export default function Root() {
   return (
@@ -18,7 +19,7 @@ export default function Root() {
         </div>
       </div>
       <div id="detail">
-        <LoadSessions />
+        <CurrentSession />
 
         <Outlet />
       </div>

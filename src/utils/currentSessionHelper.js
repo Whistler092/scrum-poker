@@ -2,6 +2,7 @@ import { db } from "./firebase";
 import { v4 as uuidv4 } from "uuid";
 import { ref, set, update } from "firebase/database";
 import { toast } from "react-hot-toast";
+import { FIREBASE_SESSIONS, FIREBASE_USERS } from "./constants";
 const config = import.meta.env;
 
 export const checkUserInCurrentSession = (user, currentSession) => {
@@ -15,15 +16,16 @@ export const checkUserInCurrentSession = (user, currentSession) => {
     newCurrentSession.usersConnected.push({
       owner: false,
       uid: user.uid,
-      displayName: user.email,
+      displayName: user.userName,
       effort: 0,
     });
 
-    update(ref(db, `sessions/${newCurrentSession.uuid}`), newCurrentSession);
+    update(
+      ref(db, `${FIREBASE_SESSIONS}${newCurrentSession.uuid}`),
+      newCurrentSession
+    );
   }
 };
-
-//updateEffortInCurrentSession(userId, currentSession, !newCards[index].isActive, newCards[index].key)
 
 export const updateEffortInCurrentSession = (
   userId,
@@ -38,11 +40,14 @@ export const updateEffortInCurrentSession = (
     }
   });
 
-  update(ref(db, `sessions/${newCurrentSession.uuid}`), newCurrentSession);
+  update(
+    ref(db, `${FIREBASE_SESSIONS}${newCurrentSession.uuid}`),
+    newCurrentSession
+  );
 };
 
 export const showCardsInCurrentSession = (currentSession) => {
-  update(ref(db, `sessions/${currentSession.uuid}`), {
+  update(ref(db, `${FIREBASE_SESSIONS}${currentSession.uuid}`), {
     ...currentSession,
     showCards: true,
   });
@@ -55,7 +60,10 @@ export const resetCardsInCurrentSession = (currentSession) => {
   });
   newCurrentSession.showCards = false;
 
-  update(ref(db, `sessions/${newCurrentSession.uuid}`), newCurrentSession);
+  update(
+    ref(db, `${FIREBASE_SESSIONS}${newCurrentSession.uuid}`),
+    newCurrentSession
+  );
 };
 
 export const createNewSession = (user, sessions) => {
@@ -64,19 +72,20 @@ export const createNewSession = (user, sessions) => {
   const newSession = {
     uuid: newUuidv4,
     date: new Date().toUTCString(),
+    userName: user.userName,
   };
-  window.localStorage.clear("currentSession");
+  window.localStorage.removeItem("currentSession");
   window.localStorage.setItem("currentSession", newUuidv4);
-  set(ref(db, `users/${user.uid}/`), [...sessions, newSession]);
+  set(ref(db, `${FIREBASE_USERS}${user.uid}/`), [...sessions, newSession]);
 
-  set(ref(db, `sessions/${newUuidv4}`), {
+  set(ref(db, `${FIREBASE_SESSIONS}${newUuidv4}`), {
     ...newSession,
     showCards: false,
     usersConnected: [
       {
         owner: true,
         uid: user.uid,
-        displayName: user.email,
+        displayName: user.userName,
         effort: 0,
       },
     ],

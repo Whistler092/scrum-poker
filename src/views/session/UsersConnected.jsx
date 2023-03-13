@@ -1,9 +1,12 @@
 import "./UsersConnected.scss";
-import { useUserContext } from "../Context/UsersContext";
-import { shareUrlHelper } from "../utils/currentSessionHelper";
+import { useUserContext } from "../../Context/UsersContext";
+import { shareUrlHelper } from "../../utils/currentSessionHelper";
+import UsersConnectedNoSession from "./UsersConnectedNoSession";
+import DisplaySummary from "./DisplaySummary";
 
 export default function UsersConnected() {
   const { user, currentSession } = useUserContext();
+  console.log("UsersConnected", currentSession?.usersConnected);
 
   const handleShareUrl = (uuid) => {
     shareUrlHelper(uuid);
@@ -14,14 +17,14 @@ export default function UsersConnected() {
       {user ? (
         <div className="users">
           <ul>
-            {currentSession?.usersConnected.map((user, index) => (
+            {currentSession?.usersConnected.map((userConnected, index) => (
               <li key={index} className="user">
-                <div>{user.displayName.split("@")[0]}</div>
+                <div>{userConnected.displayName}</div>
 
                 <div className="card">
                   {currentSession.showCards ? (
-                    user.effort
-                  ) : user.effort ? (
+                    userConnected.effort
+                  ) : userConnected.effort ? (
                     <span className="material-symbols-outlined">done</span>
                   ) : (
                     <span className="material-symbols-outlined">
@@ -32,6 +35,10 @@ export default function UsersConnected() {
               </li>
             ))}
           </ul>
+
+          {currentSession.showCards ? (
+            <DisplaySummary currentSession={currentSession} />
+          ) : null}
 
           {currentSession?.usersConnected.length === 1 ? (
             <div className="lonely-message">
@@ -50,7 +57,9 @@ export default function UsersConnected() {
             </div>
           ) : null}
         </div>
-      ) : null}
+      ) : (
+        <UsersConnectedNoSession />
+      )}
     </>
   );
 }
