@@ -1,1 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--logos" width="31.88" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 257"><defs><linearGradient id="IconifyId1813088fe1fbc01fb466" x1="-.828%" x2="57.636%" y1="7.652%" y2="78.411%"><stop offset="0%" stop-color="#41D1FF"></stop><stop offset="100%" stop-color="#BD34FE"></stop></linearGradient><linearGradient id="IconifyId1813088fe1fbc01fb467" x1="43.376%" x2="50.316%" y1="2.242%" y2="89.03%"><stop offset="0%" stop-color="#FFEA83"></stop><stop offset="8.333%" stop-color="#FFDD35"></stop><stop offset="100%" stop-color="#FFA800"></stop></linearGradient></defs><path fill="url(#IconifyId1813088fe1fbc01fb466)" d="M255.153 37.938L134.897 252.976c-2.483 4.44-8.862 4.466-11.382.048L.875 37.958c-2.746-4.814 1.371-10.646 6.827-9.67l120.385 21.517a6.537 6.537 0 0 0 2.322-.004l117.867-21.483c5.438-.991 9.574 4.796 6.877 9.62Z"></path><path fill="url(#IconifyId1813088fe1fbc01fb467)" d="M185.432.063L96.44 17.501a3.268 3.268 0 0 0-2.634 3.014l-5.474 92.456a3.268 3.268 0 0 0 3.997 3.378l24.777-5.718c2.318-.535 4.413 1.507 3.936 3.838l-7.361 36.047c-.495 2.426 1.782 4.5 4.151 3.78l15.304-4.649c2.372-.72 4.652 1.36 4.15 3.788l-11.698 56.621c-.732 3.542 3.979 5.473 5.943 2.437l1.313-2.028l72.516-144.72c1.215-2.423-.88-5.186-3.54-4.672l-25.505 4.922c-2.396.462-4.435-1.77-3.759-4.114l16.646-57.705c.677-2.35-1.37-4.583-3.769-4.113Z"></path></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>cha-rect-swear</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+
+</defs>
+    <g id="General" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SLICES-64px" transform="translate(-180.000000, -100.000000)">
+
+</g>
+        <g id="ICONS" transform="translate(-175.000000, -95.000000)">
+            <g id="cha-rect-swear" transform="translate(180.000000, 104.000000)">
+                <path d="M24.1602,40 L51.0002,40 C52.6572,40 54.0002,38.657 54.0002,37 L54.0002,3 C54.0002,1.343 52.6572,0 51.0002,0 L3.0002,0 C1.3432,0 0.0002,1.343 0.0002,3 L0.0002,37 C0.0002,38.657 1.3432,40 3.0002,40 L10.0002,40 C11.1042,40 12.0002,40.896 12.0002,42 L12.0002,50 L22.1412,40.78 C22.6942,40.278 23.4132,40 24.1602,40" id="Fill-391" fill="#E9EFFA">
+
+</path>
+                <path d="M24.1602,40 L51.0002,40 C52.6572,40 54.0002,38.657 54.0002,37 L54.0002,3 C54.0002,1.343 52.6572,0 51.0002,0 L3.0002,0 C1.3432,0 0.0002,1.343 0.0002,3 L0.0002,37 C0.0002,38.657 1.3432,40 3.0002,40 L10.0002,40 C11.1042,40 12.0002,40.896 12.0002,42 L12.0002,50 L22.1412,40.78 C22.6942,40.278 23.4132,40 24.1602,40 Z" id="Stroke-392" stroke="#99A5B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+</path>
+                <path d="M8,26 L12,14" id="Stroke-393" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+</path>
+                <path d="M12,26 L16,14" id="Stroke-394" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+</path>
+                <path d="M6,22 L17,22" id="Stroke-395" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+</path>
+                <path d="M7,18 L18,18" id="Stroke-396" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+</path>
+                <path d="M42,14 L42,20" id="Stroke-397" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+</path>
+                <polyline id="Stroke-398" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="38 26 42 20 46 26">
+
+</polyline>
+                <polyline id="Stroke-399" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="36 18 42 20 48 18">
+
+</polyline>
+                <path d="M30,20 C30,21.104 29.104,22 28,22 C26.896,22 26,21.104 26,20 C26,18.896 26.896,18 28,18 C29.104,18 30,18.896 30,20 Z" id="Stroke-400" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+</path>
+                <path d="M28,22 C30.209,22 32,20.209 32,18 C32,15.791 30.209,14 28,14 C24.687,14 22,16.687 22,20 C22,23.313 24.375,26 28,26 C29.388,26 30.739,25.414 31.878,24.69" id="Stroke-401" stroke="#53647C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+</path>
+            </g>
+        </g>
+    </g>
+</svg>
